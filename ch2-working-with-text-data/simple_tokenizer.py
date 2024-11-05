@@ -22,3 +22,27 @@ class SimpleTokenizerV1:
 
         return text
     
+with open("the-verdict.txt", "r", encoding="utf-8") as f:
+    raw_text = f.read()
+
+preprocessed = re.split(r'([,.:;?_!"()\"]|--|\s)',raw_text)
+preprocessed = [item.strip() for item in preprocessed if item.strip()]
+all_words = sorted(set(preprocessed))
+vocab = {token:integer for integer,token in enumerate(all_words)}
+
+tokenizer = SimpleTokenizerV1(vocab)
+text = """
+It's the last he painted, you know, Mrs. Gisburn said with pardonable pride.
+"""
+ids = tokenizer.encode(text)
+print(ids)
+
+# TODO: It seems like the "\" forwardslash character is supposed to be tokenized but my code is dropping, 
+# per the book's examples.
+print(tokenizer.decode(ids))
+
+try:
+    new_text = "Hello, do you like tea?"
+    print(tokenizer.encode(new_text))
+except KeyError as e:
+    print(f"Error: Token not found in vocabulary: {e}")
