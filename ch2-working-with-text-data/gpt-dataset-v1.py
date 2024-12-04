@@ -46,3 +46,12 @@ dataloader = create_dataloader_v1(raw_text, batch_size=1, max_length=4, stride=1
 data_iter = iter(dataloader)
 first_batch = next(data_iter)
 print(first_batch)
+
+# Now let's try a stride of 4 and batch size of 8
+# Increasing Stride utilizes the dataset fully, don't skip words, avoids overlap between the batches
+# Since overlap could lead to overfitting
+dataloader = create_dataloader_v1(raw_text, batch_size=4, max_length=4, stride=4, shuffle=False)
+data_iter = iter(dataloader)
+inputs, targets = next(data_iter)
+print("Inputs:\n", inputs)
+print("\nTargets:\n", targets)
