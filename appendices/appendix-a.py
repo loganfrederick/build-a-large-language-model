@@ -2,6 +2,8 @@ import torch
 
 tensor0d = torch.tensor(1)
 
+tensor2d = torch.tensor([[1,2,3],[4,5,6]])
+
 tensor3d = torch.tensor([[
     [1,2], [3,4],
     [5,6], [7,8]
@@ -30,3 +32,9 @@ print(tensor3d.view(1,2,4))
 # or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor.
 print(tensor3d.T)
 
+# RuntimeError: Expected size for first two dimensions of batch2 tensor to be: [2, 2] but got: [2, 4].
+#print(tensor3d.matmul(tensor3d.T))
+#print(tensor3d @ tensor3d.T)
+
+print(tensor2d.matmul(tensor2d.T))
+print(tensor2d @ tensor2d.T)
